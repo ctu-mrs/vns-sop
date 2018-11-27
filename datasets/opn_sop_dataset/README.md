@@ -13,5 +13,5 @@ Dataset of Set Orienteering Problem created as sampling based Orienteering Probl
 ```
 
 
-START_SET - starting set id (the path has to start in one of the nodes belonging to set number START_SET) 
-END_SET   - ending set id (the path has to end in one of the nodes belonging to set number END_SET) 
+* START_SET - starting set id (the path has to start in one of the nodes belonging to set number START_SET) 
+* END_SET   - ending set id (the path has to end in one of the nodes belonging to set number END_SET) 

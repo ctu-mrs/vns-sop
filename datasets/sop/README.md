@@ -17,7 +17,7 @@ The dataset is based on the one used in Claudia Archetti, Francesco Carrabs, Raf
 }
 ```
 
-The original dataset is enriched by defining both the START_SET add END_SET ids of sets to start and to end tour.
+The original dataset is enriched by defining both the START_SET add END_SET ids of sets to start and to end tour in.
 
 
 Originally the dataset is based on instances for the Generalized Traveling Salesman Problem proposed in:
