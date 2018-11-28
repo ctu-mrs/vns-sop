@@ -1,6 +1,7 @@
 ## Set Orienteering Problem dataset
 
 The dataset is based on the one used in Claudia Archetti, Francesco Carrabs, Raffaele Cerulli, **The Set Orienteering**, published in the European Journal of Operational Research 2018.
+The original SOP datasets can be downloaded [here](http://www.dipmat2.unisa.it/people/carrabs/www/).
 
 ```
 @article{archetti18sop,
