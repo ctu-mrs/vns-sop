@@ -14,3 +14,13 @@ For Ubuntu 18.04 LTS the dependencies can be installed using apt as:
 ```bash 
 sudo apt-get install make ccache build-essential pkg-config liblog4cxx-dev libcairo2-dev libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libboost-iostreams-dev libboost-system-dev
 ```
+### Clonning and compilation
+To clone the repository do:
+```bash 
+git clone --recursive git@github.com:ctu-mrs/vns-sop.git
+```
+and compile supporting library using:
+```bash 
+cd vns-sop/comrob/crl/
+./install.sh
+```
