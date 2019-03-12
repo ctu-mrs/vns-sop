@@ -1,0 +1,3 @@
+[submodule "sources/comrob/crl"]
+	path = sources/comrob/crl
+	url = https://github.com/comrob/crl.git
