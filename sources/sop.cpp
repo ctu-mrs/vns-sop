@@ -150,8 +150,6 @@ crl::CConfig & addCommonConfig(crl::CConfig & config) {
 	config.add<bool>("draw-tour-represented-by-ring", "enable/disable drawing tour represented by ring", false);
 	config.add<bool>("draw-cluster-points", "enable/disable drawing of cluster points", false);
 
-	config.add<int>("dubins-resolution", "intial resolution of dop", 16);
-	config.add<double>("dubins-radius", "radius of dubins vehicle", 0.5);
 	config.add<bool>("save-targets", "disable/enable save targets", true);
 	config.add<bool>("save-sampled-path", "disable/enable save sampled path", true);
 	config.add<std::string>("targets", "file to save targets", "targets.txt");
@@ -174,17 +172,13 @@ crl::CConfig & addCommonConfig(crl::CConfig & config) {
 	//for lp solver
 	config.add<bool>("lp-online-subtour-elimination", "disable/enable direct subtour elimination which may be slow",
 			true);
-	config.add<bool>("lp-adjust-milp-priorities", "disable/enable change of branch and cut priorities", true);
+	config.add<bool>("lp-adjust-milp-priorities", "disable/enable change of branch and cut priorities", false);
 	config.add<std::string>("lp-model-file", "file where to save the model", "sop-model.lp");
 	config.add<int>("num-threads", "number of threads to use", 0);
 	config.add<int>("maximal-memory-MB", "maximal memory usage MB", 1024);
 
 	config.add<bool>("initial-greedy-solution",
 			"whether to generate greedy initial solution instead of none or start-goal solution", true);
-
-	//opn
-	config.add<double>("neighborhood-radius", "radius of neighborhood in OPN , DOPN ...", 0.0);
-	config.add<int>("neighborhood-resolution", "radius of neighborhood in OPN , DOPN ...", 1);
 
 	config.add<bool>("draw-targets-reward", "enable/disable drawing targets in different color using penalty", false);
 	config.add<std::string>("draw-targets-reward-palette", "File name with colors for the reward palette", "");

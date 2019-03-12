@@ -1,6 +1,4 @@
 /*
- * VNSVNSGOPPath.cpp
- *
  *  Created on: 22. 3. 2016
  *      Author: Robert Penicka
  */

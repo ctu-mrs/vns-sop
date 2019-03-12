@@ -1,1 +1,7 @@
 sources/obj/
+sources/comrob/include/
+sources/comrob/lib/
+sources/sop_ilp
+sources/sop_vns
+sources/results/
+sources/output.log
