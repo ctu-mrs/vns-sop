@@ -1,9 +1,16 @@
-## Variable Neighborhood Search for the Set Orienteering Problem and its application to other Orienteering Problem variants
+## [Variable Neighborhood Search for the Set Orienteering Problem and its application to other Orienteering Problem variants](https://doi.org/10.1016/j.ejor.2019.01.047)
 
-**Source codes will be provided after acceptance for publication.**
+VNS-SOP repository provide source code and benchmark datasets of the [Variable Neighborhood Search method for the Set Orienteering Problem](https://doi.org/10.1016/j.ejor.2019.01.047), published in the European Journal of Operational Research.
 
-* Datasets are available in **datasets** folder
-* Computational results are in **results** folder
+**Repository of contains following content:**
+- **datasets** folder contains datasets of SOP
+- **results** folder contains computational results shown in the [paper](https://doi.org/10.1016/j.ejor.2019.01.047)
+- **sources** folder constains source codes for VNS and ILP for SOP  
 
-VNS-SOP repository will provide source code and benchmark datasets of the Variable Neighborhood Search method for the Set Orienteering Problem, submission to the European Journal of Operational Research.
 
+### Dependencies 
+
+For Ubuntu 18.04 LTS the dependencies can be installed using apt as:
+```bash 
+sudo apt-get install make ccache build-essential pkg-config liblog4cxx-dev libcairo2-dev libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libboost-iostreams-dev libboost-system-dev
+```
