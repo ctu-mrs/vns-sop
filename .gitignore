@@ -5,3 +5,10 @@ sources/sop_ilp
 sources/sop_vns
 sources/results/
 sources/output.log
+visualization/utils/__pycache__/
+
+
+.cproject
+.project
+.pydevproject
+.settings/

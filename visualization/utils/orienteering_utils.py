@@ -75,6 +75,8 @@ class SetOrienteeringProblemDefinition():
         self.num_vehicles = 0
         self.start_index = 0
         self.end_index = 1
+        self.dubins_radius = 0
+        self.neighborhood_radius = 0
         self.edge_weight_type = SetOrienteeringProblemDefinition.EDGE_WEIGHT_TYPE_CEIL_2D
     
     def get_nodes(self):
@@ -121,6 +123,8 @@ class SetOrienteeringProblemDefinition():
         END_SET = "END_SET"
         TMAX = "TMAX"
         EOF = "EOF"
+        DUBINS_RADIUS = "DUBINS_RADIUS"
+        NEIGHBORHOOD_RADIUS = "NEIGHBORHOOD_RADIUS"
         
         coords_section = False
         set_section = False
@@ -141,7 +145,7 @@ class SetOrienteeringProblemDefinition():
                 
                 if EDGE_WEIGHT_TYPE in line:
                     strs = line.split()
-                    print(strs)
+                    #print(strs)
                     if strs[1] == EDGE_WEIGHT_TYPE_EXPLICIT:
                         self.edge_weight_type = SetOrienteeringProblemDefinition.EDGE_WEIGHT_TYPE_EXPLICIT
                         #print("set explicit")
@@ -159,6 +163,16 @@ class SetOrienteeringProblemDefinition():
                     else:
                         print("TMAX is not digit", strs)
                         sys.exit(1)
+                
+                if DUBINS_RADIUS in line:
+                    strs = line.split()
+                    if strs[1].isdigit():
+                        self.dubins_radius = int(strs[1])
+                        
+                if NEIGHBORHOOD_RADIUS in line:
+                    strs = line.split()
+                    if strs[1].isdigit():
+                        self.neighborhood_radius = int(strs[1])                    
                 
                 if DIMENSION in line:
                     dim_strs = line.split()

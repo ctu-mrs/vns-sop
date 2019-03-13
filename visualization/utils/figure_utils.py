@@ -10,6 +10,7 @@ from shapely.ops import cascaded_union, polygonize
 from descartes import PolygonPatch
 
 
+
 def configure_latex_fonts():
     from matplotlib import rc
     rc('font',**{'family':'serif','serif':['Computer Modern Roman']})
@@ -155,7 +156,7 @@ def alpha_shape(points, alpha):
         edge_points.append(coords[ [i, j] ])
         
     coords = np.array([point for point in points])
-    print("coords", coords)
+    #print("coords", coords)
     tri = Delaunay(coords)
     edges = set()
     edge_points = []
@@ -164,7 +165,7 @@ def alpha_shape(points, alpha):
         pa = coords[ia]
         pb = coords[ib]
         pc = coords[ic]
-        print(ia, ib, ic)
+        #print(ia, ib, ic)
         # Lengths of sides of triangle
         a = math.sqrt((pa[0] - pb[0]) ** 2 + (pa[1] - pb[1]) ** 2)
         b = math.sqrt((pb[0] - pc[0]) ** 2 + (pb[1] - pc[1]) ** 2)
