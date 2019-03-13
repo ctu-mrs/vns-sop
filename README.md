@@ -5,7 +5,8 @@ VNS-SOP repository provide source code and benchmark datasets of the [Variable N
 **Repository of contains following content:**
 - **datasets** folder contains datasets of SOP
 - **results** folder contains computational results shown in the [paper](https://doi.org/10.1016/j.ejor.2019.01.047)
-- **sources** folder contains source codes for VNS and ILP for SOP  
+- **sources** folder contains source codes for VNS and ILP for SOP 
+- **visualization** folder contains python scripts for visualizing the results 
 
 
 ### Dependencies 
@@ -28,13 +29,25 @@ cd vns-sop/sources/comrob/crl/
 
 ### Compilation
 
-The VNS-SOP can be compiled using the above dependencies by running _make sop_vns_ in folder _vns-sop/sources_. 
-The ILP additionally requires CPLEX dependency where the ILP formulation for SOP is implemented. Please set the CPLEX_ROOT_DIR variable in Makefile to right location of your CPLEX installation. The ILP for SOP can be compiled by running _make sop_ilp_. Alternatively both VNS-SOP and ILP for SOP can be compiled at once by calling _make all_.
+The VNS-SOP can be compiled using the above dependencies by running **make sop\_vns** in folder **vns-sop/sources**. 
+The ILP additionally requires CPLEX dependency where the ILP formulation for SOP is implemented. Please set the CPLEX_ROOT_DIR variable in Makefile to right location of your CPLEX installation. The ILP for SOP can be compiled by running **make sop\_ilp**. Alternatively both VNS-SOP and ILP for SOP can be compiled at once by calling _make all_.
 
+###Running VNS-SOP and ILP for SOP
+
+After compilation, the VNS-SOP can be run using **sop\_vns** file and the ILP solver for SOP can be run using **sop\_ilp**.
+The default configuration of programs is in **sop.cfg** file. 
+Most importatn configuration parameters are:
+- _problem_ - specifies location of sop dataset instance file
+- _gui_ - switch between "cairo" gui, "none" gui and "cairo-nowin" with backgroun creation of gui images
+- _nowait_ - switch wether to close gui window after finish of program
+The configuration parameters can be also set as a command param, e.g. by running
+```bash
+./sop_vns --problem=../datasets/opn_sop_dataset/tsiligirides_problem_2_budget_30_d_50_s_08.sop --gui=cairo --nowait=0
+```
 
 ### Visualization
 
-Dependencies:
+Vizualization dependencies:
 ```bash
 sudo apt-get install python3-shapely python3-descartes
 ```
