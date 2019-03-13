@@ -30,3 +30,11 @@ cd vns-sop/sources/comrob/crl/
 
 The VNS-SOP can be compiled using the above dependencies by running _make sop_vns_ in folder _vns-sop/sources_. 
 The ILP additionally requires CPLEX dependency where the ILP formulation for SOP is implemented. Please set the CPLEX_ROOT_DIR variable in Makefile to right location of your CPLEX installation. The ILP for SOP can be compiled by running _make sop_ilp_. Alternatively both VNS-SOP and ILP for SOP can be compiled at once by calling _make all_.
+
+
+### Visualization
+
+Dependencies:
+```bash
+sudo apt-get install python3-shapely python3-descartes
+```

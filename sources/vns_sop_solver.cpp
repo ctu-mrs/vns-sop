@@ -28,6 +28,7 @@ VnsSopSolver::VnsSopSolver(crl::CConfig& config, const std::string& problemFile)
 				config.get<bool>("save-targets")), SAVE_SAMPLED_PATH(config.get<bool>("save-sampled-path")) {
 
 	SOP_Prolem problem = SOPLoader::getSOPDefinition(config, problemFile, true);
+	this->problem_file = problemFile;
 	INFO("has SOP definition");
 	this->name = config.get<std::string>("name");
 	if (this->name.compare("no_name") == 0) {
@@ -1525,6 +1526,7 @@ void VnsSopSolver::defineResultLog(void) {
 	if (!resultLogInitialized) {
 		resultLog << result::newcol << "NAME";
 		resultLog << result::newcol << "METHOD";
+		resultLog << result::newcol << "PROBLEM_FILE";
 		resultLog << result::newcol << "CTIME";
 		resultLog << result::newcol << "NUM_ITERS";
 		resultLog << result::newcol << "BUDGET";
@@ -1591,7 +1593,7 @@ void VnsSopSolver::fillResultRecord(int numIters, double length, int numItersLas
 
 	double final_length = this->finalTourVNSGOPPath.getPathLength();
 
-	resultLog << result::newrec << name << getMethod() << t[0] << numIters << this->budget << final_reward
+	resultLog << result::newrec << name << getMethod()<<problem_file << t[0] << numIters << this->budget << final_reward
 			<< maximalRewardAll << final_length << numItersLastImprovement << timeLastImprovement
 			<< maximal_calculation_time_MS << set_greedy_initial_solution << tourNodes.str() << tourClusters.str()
 			<< tourImprovements.str() << lower_bound_above_budget_then_skip;

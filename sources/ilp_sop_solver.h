@@ -124,6 +124,8 @@ private:
 	std::vector<std::vector<std::vector<std::vector<double>>>> allDistances;
 	std::vector<std::vector<GraphNode>> nodesAllClusters;
 
+	std::string problem_file;
+
 	double budget;
 	int startIndex;
 	int goalIndex;

@@ -155,6 +155,8 @@ private:
 	std::vector<std::vector<double>> clustersMinDistances;
 	std::vector<std::vector<double>> clustersMaxDistances;
 
+	std::string problem_file;
+
 	samples_type nodesForInsertion;
 
 	samples_type availableNodes;
