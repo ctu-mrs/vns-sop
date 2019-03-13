@@ -47,7 +47,8 @@ The configuration parameters can be also set as a command param, e.g. by running
 
 ### Visualization
 
-Vizualization dependencies:
+Vizualization script **show_solution.py** can be used to show the last solution recorded in result log **sources/results/results.log**.
+To be able to run the script, following dependencies have to be installed:
 ```bash
 sudo apt-get install python3-shapely python3-descartes
 ```
