@@ -80,10 +80,7 @@ for clust_idx in range(len(result_cluster_ids)):
     result_node_inside_cluster.append(node_inside_cluster)
     head_ang = math.pi+ (2 * math.pi * node_inside_cluster) / SAMPLING_HEADING
     result_head_angs.append(head_ang)
-    #print("clust", clust)
-    #print("node", node)
-    #print("sets", sets[clust])
-    #print("node_inside_cluster", node_inside_cluster)
+
     calc_reward += sets_rewards[clust]
     if node not in sets[clust]:
         print("what the hell, it is not good")

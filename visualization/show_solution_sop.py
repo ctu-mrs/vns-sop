@@ -10,6 +10,11 @@ import shapely.geometry as geometry
 from shapely.ops import cascaded_union, polygonize
 import math
 
+class ProblemType():
+    UNKNOWN = 0
+    SOP = 1
+    DOP = 2
+    OPN = 3
 
 sys.path.append("utils")
 import figure_utils
@@ -27,13 +32,29 @@ SCATTER_SIZE = 80
 figsize = (7.5,6)
 SHOW_FIGURE = True
 
+
 data_vns_sop = orienteering_utils.parse_op_log(RESULT_FILE)
 
 print("using the last results")
 record = data_vns_sop[-1]
 print("record",record)
 
+problem_type = ProblemType.UNKNOWN
+
 PROBLEM_FILE = record['PROBLEM_FILE']
+if "datasets/sop/" in PROBLEM_FILE:
+    print("showing SOP")
+    problem_type = ProblemType.SOP
+elif "datasets/dop_sop_dataset/" in PROBLEM_FILE:
+    print("showing DOP")
+    problem_type = ProblemType.DOP
+elif "datasets/opn_sop_dataset/" in PROBLEM_FILE:
+    print("showing OPN")
+    problem_type = ProblemType.OPN
+else:
+    error("can not decide problem type based on problem file location")
+    problem_type = ProblemType.UNKNOWN
+
 op = orienteering_utils.SetOrienteeringProblemDefinition()
 op.load_problem_file(PROBLEM_FILE)
 sets_prices = op.get_sets_prices()
@@ -54,9 +75,7 @@ calc_reward = 0
 for clust_idx in range(len(result_cluster_ids)):
     clust = result_cluster_ids[clust_idx]
     node = result_target_ids[clust_idx]
-    # print("clust",clust)
-    # print("node",node)
-    # print("sets",sets[clust])
+
     calc_reward += sets_prices[clust]
     if node not in sets[clust]:
         print("what the hell, it is not good")
@@ -82,7 +101,6 @@ minrew = min(nodes_w_rewards[:, 2])
 maxrew = max(nodes_w_rewards[:, 2])
 
 cNorm = mpl.colors.Normalize(vmin=minrew, vmax=maxrew + 0.1*(maxrew-minrew))       
-#cNorm  = mpl.colors.Normalize(vmin=min(nodes_w_rewards[:, 2]), vmax=max(nodes_w_rewards[:, 2]))
 mycmapScalarMap = mpl.cm.ScalarMappable(norm=cNorm, cmap=mycmap)
 
 fig = plt.figure(num=None, figsize=figsize, dpi=80, facecolor='w', edgecolor='k')
@@ -122,10 +140,8 @@ for node_idx in range(1,len(result_target_ids)):
     print(node_prew,'->',node,",",node_pos_prew,'->',node_pos)
     plt.plot([node_pos_prew[0], node_pos[0] ], [node_pos_prew[1], node_pos[1] ], '-g', lw=1.6)
 
-# plt.plot(sampled_path1[:,0],sampled_path1[:,1],'-k',lw = 2.0)
 ax = plt.gca()
 ax.axis('equal')
-
 
 cbar_position = [0.3125, 0.05, 0.375, 0.03]
 cbar_ax = fig.add_axes(cbar_position)
