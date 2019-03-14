@@ -36,11 +36,11 @@ The ILP additionally requires CPLEX dependency where the ILP formulation for SOP
 
 After compilation, the VNS-SOP can be run using **sop\_vns** file and the ILP solver for SOP can be run using **sop\_ilp**.
 The default configuration of programs is in **sop.cfg** file. 
-Most importatn configuration parameters are:
+Most important configuration parameters are:
 - _problem_ - specifies location of sop dataset instance file
-- _gui_ - switch between "cairo" gui, "none" gui and "cairo-nowin" with backgroun creation of gui images
-- _nowait_ - switch wether to close gui window after finish of program
-The configuration parameters can be also set as a command param, e.g. by running
+- _gui_ - switch between "cairo" gui, "none" gui and "cairo-nowin" with background creation of gui images
+- _nowait_ - switch whether to close gui window after finish of program
+The configuration parameters can be also set as a command line parameters, e.g. by running
 ```bash
 ./sop_vns --problem=../datasets/opn_sop_dataset/tsiligirides_problem_2_budget_30_d_50_s_08.sop --gui=cairo --nowait=0
 ```
@@ -53,3 +53,4 @@ To be able to run the script, following dependencies have to be installed (for t
 sudo apt-get install python3-numpy python3-matplotlib python3-scipy python3-shapely python3-descartes python3-pip
 pip3 install git+git://github.com/AndrewWalker/pydubins.git
 ```
+Then, the visualization script can be run by calling **./show_solution.py** showing the matplotlib graph of latest result and saving it to png image. Variant of SOP (pure SOP, DOP or OPN) is determined based on problem file location.
