@@ -11,14 +11,13 @@ from descartes import PolygonPatch
 
 
 
-def configure_latex_fonts():
+def configure_latex_fonts_latex():
     from matplotlib import rc
     rc('font',**{'family':'serif','serif':['Computer Modern Roman']})
     rc('text', usetex=True)
     plt.rc('text', usetex=True)
     plt.rc('font', family='serif')
     
-
 def orthogonal_proj(zfront, zback):
     a = (zfront+zback)/(zfront-zback)
     b = -2*(zfront*zback)/(zfront-zback)
