@@ -38,7 +38,7 @@ After compilation, the VNS-SOP can be run using **sop\_vns** program and the ILP
 The default configuration of programs is stored in **sop.cfg** file. 
 The most important configuration parameters are:
 - _problem_ - specifies location of sop dataset instance file
-- _gui_ - switch between "cairo" gui, "none" gui and "cairo-nowin" with background creation of gui images
+- _gui_ - switch between "cairo" gui, "none" gui and "cairo-nowin" with background creation of gui images (gui is only shown for pure SOP and OPN instances, the DOP instances have no gui in runtime, however, can be visualized using the show_solution.py script)
 - _nowait_ - switch whether to close gui window after finish of the solver
 
 The configuration parameters can be also set as a command line parameters, e.g. by running
