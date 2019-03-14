@@ -58,7 +58,12 @@ class OrienteeringProblemDefinition():
     def get_end_index(self):
         return self.end_index
 
-    
+class ProblemType():
+    UNKNOWN = 0
+    SOP = 1
+    DOP = 2
+    OPN = 3    
+
 class SetOrienteeringProblemDefinition():
 
     EDGE_WEIGHT_TYPE_EXPLICIT = 1

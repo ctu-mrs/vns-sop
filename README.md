@@ -18,7 +18,7 @@ sudo apt-get install make ccache build-essential pkg-config liblog4cxx-dev libca
 ### Cloning and compilation of supporting libraries
 To clone the repository do:
 ```bash 
-git clone --recursive git@github.com:ctu-mrs/vns-sop.git
+git clone --recursive https://github.com/ctu-mrs/vns-sop.git
 ```
 and compile supporting library using:
 ```bash 
@@ -48,7 +48,8 @@ The configuration parameters can be also set as a command param, e.g. by running
 ### Visualization
 
 Vizualization script **show_solution.py** can be used to show the last solution recorded in result log **sources/results/results.log**.
-To be able to run the script, following dependencies have to be installed:
+To be able to run the script, following dependencies have to be installed (for the Ubuntu 18.04 LTS):
 ```bash
-sudo apt-get install python3-shapely python3-descartes
+sudo apt-get install python3-numpy python3-matplotlib python3-scipy python3-shapely python3-descartes python3-pip
+pip3 install git+git://github.com/AndrewWalker/pydubins.git
 ```

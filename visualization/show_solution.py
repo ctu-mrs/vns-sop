@@ -1,35 +1,20 @@
 #!/usr/bin/env python3
 
+import sys, os
 import random
 import numpy as np
-import matplotlib.pyplot as plt
+
 import matplotlib as mpl
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using non-interactive Agg backend')
+    mpl.use('Agg')
+
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-import sys, os
 import shapely.geometry as geometry
 from shapely.ops import cascaded_union, polygonize
 import math
 from matplotlib.pyplot import arrow
 import dubins
-
-
-class ProblemType():
-    UNKNOWN = 0
-    SOP = 1
-    DOP = 2
-    OPN = 3
-
-
-this_script_path = os.path.dirname(__file__)                                                                                                                                                            
-path_to_utils = os.path.join(this_script_path, "utils")  
-sys.path.append(path_to_utils)
-import figure_utils
-import orienteering_utils
-
-figure_utils.configure_latex_fonts()
-
-RESULT_FILE = "../sources/results/results.log"
-RESULT_FILE = os.path.join(this_script_path, RESULT_FILE)
 
 legend_font_size = 24
 tick_font_size = 20
@@ -37,6 +22,19 @@ NUM_POINTS_TO_GEN = 16
 SCATTER_SIZE = 80
 figsize = (7.5, 6)
 SHOW_FIGURE = True
+
+RESULT_FILE = "../sources/results/results.log"
+RESULT_FILE = os.path.join(this_script_path, RESULT_FILE)
+
+this_script_path = os.path.dirname(__file__)                                                                                                                                                            
+path_to_utils = os.path.join(this_script_path, "utils")  
+sys.path.append(path_to_utils)
+import figure_utils
+import orienteering_utils
+from orienteering_utils import ProblemType
+
+#use nice latex fonts if latex is installed
+#figure_utils.configure_latex_fonts()
 
 data_vns_sop = orienteering_utils.parse_op_log(RESULT_FILE)
 
