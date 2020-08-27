@@ -3,7 +3,7 @@
 # Author:    Robert Pěnička
 #
 
-CPLEX_ROOT_DIR=/opt/ibm/ILOG/CPLEX_Studio1210
+CPLEX_ROOT_DIR=/opt/cplex-12.9
 CXXFLAGS+=-DIL_STD -I$(CPLEX_ROOT_DIR)/concert/include -I$(CPLEX_ROOT_DIR)/cplex/include -I$(CPLEX_ROOT_DIR)/opl/include/
 LDFLAGS+=-DIL_STD -L$(CPLEX_ROOT_DIR)/cplex/lib/x86-64_linux/static_pic/ \
 		  -L$(CPLEX_ROOT_DIR)/concert/lib/x86-64_linux/static_pic/ -lilocplex -lconcert -lcplex -lm -lpthread -lgmp -lz -ldl
