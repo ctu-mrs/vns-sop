@@ -193,7 +193,7 @@ void IlpSopSolver::iterate(int iter) {
 		INFO_VAR(optimal_solution);
 		INFO("Gap value  = " << cplex.getMIPRelativeGap());
 		INFO("Solution value  = " << cplex.getObjValue());
-		INFO("Maximum bound violation = " << cplex.getQuality(IloCplex::Quality::DualObj));
+		//INFO("Maximum bound violation = " << cplex.getQuality(IloCplex::Quality::DualObj));
 
 		INFO("solution is:");
 
@@ -236,6 +236,7 @@ void IlpSopSolver::iterate(int iter) {
 	double final_reward = 0;
 
 	for (int var = 0; var < finalTourOP.size(); ++var) {
+		INFO("loop regard/length var "<<var)
 		if (var != 0) {
 			final_length +=
 					allDistances[finalTourOP[var - 1].clusterIndex][finalTourOP[var].clusterIndex][finalTourOP[var - 1].nodeIndex][finalTourOP[var].nodeIndex];
