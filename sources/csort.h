@@ -8,7 +8,7 @@
 #ifndef SRC_COMMON_CSORT_H_
 #define SRC_COMMON_CSORT_H_
 #include <vector>
-#include "crl/logging.h"
+#include "comrob_lite/logging.h"
 using crl::logger;
 
 

@@ -15,9 +15,9 @@
 #include <iostream>
 #include <limits>
 #include <iomanip>
-#include "crl/logging.h"
+#include "comrob_lite/logging.h"
 #include "coords.h"
-#include <crl/config.h>
+#include "comrob_lite/config.h"
 
 #include "my_defines.h"
 

@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <list>
-#include "crl/logging.h"
+#include "comrob_lite/logging.h"
 #include <cfloat>
 #include <limits>
 
@@ -18,24 +18,17 @@
 
 #include <boost/foreach.hpp>
 
-#include <crl/config.h>
-#include <crl/alg/algorithm.h>
-#include <crl/loader/text_format_loader.h>
-#include "crl/random.h"
-#include "crl/timerN.h"
-#include "crl/perf_timer.h"
-#include "crl/logging.h"
-#include "crl/stringconversions.h"
-#include "crl/loader/nodeloader.h"
-#include "crl/alg/text_result_log.h"
-#include "crl/file_utils.h"
-#include "crl/assert.h"
-
-#include "crl/gui/shapes.h"
-#include "crl/gui/colormap.h"
-
-#include "crl/gui/gui.h"
-#include "canvasview_coords.h"
+#include "comrob_lite/config.h"
+#include "comrob_lite/algorithm.h"
+//#include <comrob_lite/text_format_loader.h>
+#include "comrob_lite/random.h"
+#include "comrob_lite/timerN.h"
+#include "comrob_lite/perf_timer.h"
+#include "comrob_lite/stringconversions.h"
+//#include "comrob_lite/nodeloader.h"
+#include "comrob_lite/text_result_log.h"
+#include "comrob_lite/file_utils.h"
+#include "comrob_lite/assert.h"
 
 #include <unordered_set>
 

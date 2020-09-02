@@ -12,17 +12,11 @@
 
 #include <vector>
 #include <list>
-#include "crl/logging.h"
+#include "comrob_lite/logging.h"
 #include <cfloat>
 #include <limits>
 
 #include "coords.h"
-
-#include "crl/gui/shapes.h"
-#include "crl/gui/colormap.h"
-
-#include "crl/gui/gui.h"
-#include "canvasview_coords.h"
 
 #include <unordered_set>
 

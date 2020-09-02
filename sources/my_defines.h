@@ -8,7 +8,7 @@
 #ifndef LP_GOP_MY_DEFINES_H_
 #define LP_GOP_MY_DEFINES_H_
 
-#include "crl/logging.h"
+#include "comrob_lite/logging.h"
 #include <string>
 #include <iostream>
 

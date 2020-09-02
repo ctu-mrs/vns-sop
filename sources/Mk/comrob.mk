@@ -18,7 +18,7 @@ OBJS_SUBDIRS_ALL:=$(addsuffix /*.o,$(OBJS_SUBDIRS))
 all: $(TARGETS)
 
 $(OBJS): %.o: %.cpp
-	$(info compiling OBJS)
+	$(info compiling OBJS $@)
 	$(CXX) -c $< $(CXXFLAGS) $(CPPFLAGS) -o $(OBJ_DIR)/$@
 	
 $(OBJS_VNS): %.o: %.cpp
@@ -42,6 +42,7 @@ sop_ilp: create_directories $(OBJS) $(OBJS_ILP)
 create_directories:
 	$(info create dircetory $(OBJ_DIR))
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/comrob_lite
 
 clean:
 	$(info cleaning)

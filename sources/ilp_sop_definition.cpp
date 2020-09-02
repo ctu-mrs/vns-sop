@@ -11,7 +11,7 @@ using crl::logger;
 
 using namespace op;
 using namespace crl;
-using namespace crl::gui;
+//using namespace crl::gui;
 
 
 bool debug_ilp_sop_formulas = false;

@@ -7,7 +7,7 @@
 
 #ifndef SRC_DATASETLOADER_SOP_H_
 #define SRC_DATASETLOADER_SOP_H_
-#include "crl/logging.h"
+#include "comrob_lite/logging.h"
 #include <iostream>     // std::cout
 #include <fstream>      // std::ifstream
 #include <cstdio>

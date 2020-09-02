@@ -16,7 +16,7 @@ using crl::logger;
 
 using namespace op;
 using namespace crl;
-using namespace crl::gui;
+//using namespace crl::gui;
 
 #define foreach BOOST_FOREACH
 #define MIN_CHANGE_EPS 0.00001
@@ -435,173 +435,14 @@ std::string IlpSopSolver::getVersion(void) {
 void IlpSopSolver::load(void) {
 	// nothing to load, structures are passed to the constructor
 	INFO("load");
-	int n = nodesAllClusters.size();
-	if (canvas) {
-		CoordsVector points;
-		//INFO("BORDER " << BORDER);
-		for (int clusterid = 0; clusterid < nodesAllClusters.size(); ++clusterid) {
-			for (int clusternodeid = 0; clusternodeid < nodesAllClusters[clusterid].size(); ++clusternodeid) {
-				GraphNode station = nodesAllClusters[clusterid][clusternodeid];
-				Coords coord_up(station.x + BORDER, station.y + BORDER);
-				Coords coord_down(station.x - BORDER, station.y - BORDER);
-				points.push_back(coord_up);
-				points.push_back(coord_down);
-			}
-		}
-
-		*canvas << canvas::AREA;
-		//INFO("draw points");
-		foreach(Coords coords, points){
-		//INFO(coords.x<<" "<<coords.y);
-		*canvas << coords;
-	}
-	//INFO("set to canvas");
-		*canvas << canvas::END;
-
-		if (config.get<bool>("draw-stations")) {
-			std::string pallete = config.get<std::string>("draw-targets-reward-palette");
-			if (config.get<bool>("draw-targets-reward") and crl::isFile(pallete)) {
-				crl::gui::CColorMap map;
-				map.load(pallete);
-				double minReward = DBL_MAX;
-				double maxReward = -DBL_MAX;
-				for (int var = 0; var < nodesAllClusters.size(); ++var) {
-					if (nodesAllClusters[var][0].reward < minReward) {
-						minReward = nodesAllClusters[var][0].reward;
-					}
-					if (nodesAllClusters[var][0].reward > maxReward) {
-						maxReward = nodesAllClusters[var][0].reward;
-					}
-				}
-				if (minReward == maxReward) {
-					minReward = 0.99 * maxReward;
-				}
-				map.setRange(minReward, maxReward);
-				*canvas << "targets" << CShape(config.get<std::string>("draw-shape-targets")) << canvas::POINT;
-				for (int clusterid = 0; clusterid < nodesAllClusters.size(); ++clusterid) {
-					for (int clusternodeid = 0; clusternodeid < nodesAllClusters[clusterid].size(); ++clusternodeid) {
-						GraphNode station = nodesAllClusters[clusterid][clusternodeid];
-						//DEBUG("reward: " << target->reward << " color: " << map.getColor((double)target->reward));
-						Coords cord(station.x, station.y);
-						*canvas << crl::gui::canvas::FILL_COLOR << map.getColor((double) station.reward) << cord;
-					}
-				}
-
-				//draw convex hull around cluster poinst
-				for (int clusterid = 0; clusterid < nodesAllClusters.size(); ++clusterid) {
-					PointConvexHull points_in_cluster[nodesAllClusters[clusterid].size()];
-					for (int clusterNodeID = 0; clusterNodeID < nodesAllClusters[clusterid].size(); ++clusterNodeID) {
-						points_in_cluster[clusterNodeID] = PointConvexHull(nodesAllClusters[clusterid][clusterNodeID].x,
-								nodesAllClusters[clusterid][clusterNodeID].y);
-					}
-					vector < PointConvexHull > hull = convex_hull::get_convex_hull(points_in_cluster,
-							nodesAllClusters[clusterid].size());
-
-					std::stringstream ss;
-					ss << "convexhulls" << clusterid;
-					CShape colorhull;
-					colorhull.setPenColor(map.getColor((double) nodesAllClusters[clusterid][0].reward));
-					*canvas << ss.str().c_str() << colorhull << canvas::LINESTRING;
-
-					if (hull.size() > 0) {
-						for (int hullidx = 0; hullidx < hull.size(); ++hullidx) {
-							Coords cord(hull[hullidx].x, hull[hullidx].y);
-							*canvas << cord;
-						}
-						Coords cord(hull[0].x, hull[0].y);
-						*canvas << cord;
-					} else if (nodesAllClusters[clusterid].size() > 0) {
-						for (int clusternodeid = 0; clusternodeid < nodesAllClusters[clusterid].size();
-								++clusternodeid) {
-							Coords cord(nodesAllClusters[clusterid][clusternodeid].x,
-									nodesAllClusters[clusterid][clusternodeid].y);
-							*canvas << cord;
-						}
-						Coords cord(nodesAllClusters[clusterid][0].x, nodesAllClusters[clusterid][0].y);
-						*canvas << cord;
-					}
-				}
-
-			} else {
-				//INFO("draw stations");
-				*canvas << "stations" << CShape(config.get<std::string>("draw-shape-stations")) << canvas::POINT;
-				for (int clusterid = 0; clusterid < nodesAllClusters.size(); ++clusterid) {
-					for (int clusternodeid = 0; clusternodeid < nodesAllClusters[clusterid].size(); ++clusternodeid) {
-						GraphNode station = nodesAllClusters[clusterid][clusternodeid];
-						Coords cord(station.x, station.y);
-						//INFO(cord.x<<" ; "<<cord.y);
-
-						*canvas << cord << canvas::END;
-					}
-				}
-			}
-		}
-
-		canvas->redraw();
-		//usleep(500000);
-	} //end canvas
 }
 
 void IlpSopSolver::drawNeighborhoodPoints() {
-	if (canvas && draw_cluster_points) {
-		//INFO("drawNeighborhoodPoints");
-		usleep(2000);
-		*canvas << canvas::CLEAR << "neighborhoodp" << "neighborhoodp" << canvas::POINT;
-		CShape neighborhoodPoint("blue", "blue", 1, 1);
-		for (int nodeID = 0; nodeID < nodesAllClusters.size(); ++nodeID) {
-			//INFO_VAR(nodeID);
-
-			const int neighborhoodSize = nodesAllClusters[nodeID].size();
-			//INFO_VAR(neighborhoodSize);
-			for (int neighID = 0; neighID < neighborhoodSize; ++neighID) {
-				//INFO(neighID<<" draw neighborhood pos "<<neighborhood[neighID][0].node.x<<" "<<neighborhood[neighID][0].node.y);
-				Coords cord(nodesAllClusters[nodeID][neighID].x, nodesAllClusters[nodeID][neighID].y);
-				*canvas << neighborhoodPoint << cord;
-			}
-		}
-		*canvas << canvas::END;
-		canvas->redraw();
-		usleep(2000);
-		//INFO("drawNeighborhoodPoints end");
-	}
 }
 
 /// - private method -----------------------------------------------------------
 void IlpSopSolver::drawPath(int usleepTime, std::vector<IndexSOP> * toShow) {
 	//INFO("drawPath begin");
-
-	if (canvas) {
-		*canvas << canvas::CLEAR << "path" << "path" << canvas::LINESTRING;
-
-
-		std::vector<IndexSOP> pathToDraw = finalTourOP;
-
-		if (toShow != NULL) {
-			pathToDraw = *toShow;
-		}
-
-		//INFO("pathToDraw size "<<pathToDraw.size());
-		CoordsVector coords = SOPLoader::getCoordPath(pathToDraw, nodesAllClusters, gopType, config);
-		CShape blackPoint("black", "black", 1, 4);
-		CShape blackLine("black", "black", 2, 0);
-		for (int var = 1; var < coords.size(); ++var) {
-			*canvas << canvas::LINE << blackLine;
-			*canvas << coords[var - 1].x << coords[var - 1].y;
-			*canvas << coords[var].x << coords[var].y;
-			*canvas << canvas::END;
-		}
-
-		*canvas << canvas::CLEAR << "pathpoint" << "pathpoint" << canvas::POINT;
-		for (int var = 0; var < pathToDraw.size(); ++var) {
-			GraphNode gn = nodesAllClusters[pathToDraw[var].clusterIndex][pathToDraw[var].nodeIndex];
-			Coords coord(gn.x, gn.y);
-			*canvas << blackPoint << coord;
-		}
-
-		*canvas << canvas::END;
-		canvas->redraw();
-	}
-	//INFO("drawPath end");
 }
 
 void IlpSopSolver::initialize(void) {
@@ -679,13 +520,6 @@ void IlpSopSolver::save(void) {
 		}
 		crl::assert_io(ofs.good(), "Error occur during path saving");
 		ofs.close();
-	}
-	if (canvas) { // map must be set
-		*canvas << canvas::CLEAR << "ring";
-		if (config.get<bool>("draw-path")) {
-			drawPath();
-		}
-		saveCanvas();
 	}
 }
 

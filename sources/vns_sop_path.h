@@ -5,9 +5,10 @@
 
 #pragma once
 
-#include <crl/alg/algorithm.h>
-#include "crl/logging.h"
+#include "comrob_lite/algorithm.h"
+#include "comrob_lite/logging.h"
 #include <tuple>
+#include <algorithm>
 
 #include "heuristic_types.h"
 #include "math_common.h"

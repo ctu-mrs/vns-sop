@@ -11,7 +11,7 @@ LDFLAGS+=-DIL_STD -L$(CPLEX_ROOT_DIR)/cplex/lib/x86-64_linux/static_pic/ \
 include Mk/libs.mk
 include Mk/flags.mk
 
-OBJS=coords.o math_common.o heuristic_types.o dataset_loader_op.o dataset_loader_sop.o convexhull.o sop_loader.o
+OBJS=comrob_lite/timerN.o comrob_lite/logging.o comrob_lite/text_result_log.o comrob_lite/result_log.o comrob_lite/random.o comrob_lite/file_utils.o comrob_lite/algorithm.o comrob_lite/algorithm_base.o coords.o math_common.o heuristic_types.o dataset_loader_op.o dataset_loader_sop.o convexhull.o sop_loader.o
 OBJS_VNS=vns_sop_path.o vns_sop_solver.o 
 OBJS_ILP=ilp_sop_definition.o ilp_sop_solver.o
 
@@ -19,6 +19,7 @@ TARGETS=sop_vns sop_ilp
 #TARGETS=sop_ilp
 #TARGETS=sop_vns 
 
+OBJ_DIRs=obj
 OBJ_DIR=obj
 
 include Mk/comrob.mk

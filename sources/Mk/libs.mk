@@ -27,12 +27,15 @@ BOOST_LDFLAGS+=-lboost_program_options -lboost_thread -lboost_filesystem -lboost
 LOG4CXX_LDFLAGS+=-llog4cxx
 CAIRO_LDFLAGS+=-lcairo -pthread -lX11
 
-LOCAL_CFLAGS=-Icomrob/include 
-LOCAL_LDFLAGS=-Lcomrob/lib 
+#LOCAL_CFLAGS=-Icomrob/include 
+#LOCAL_LDFLAGS=-Lcomrob/lib 
 
-CRL-GUI_LDFLAGS=-lcrl-gui
-CRL-LDFLAGS=-lcrl
-CRL-ALGORITHM=-lcrl-algorithm
+LOCAL_CFLAGS=
+LOCAL_LDFLAGS=
+
+#CRL-GUI_LDFLAGS=-lcrl-gui
+#CRL-LDFLAGS=-lcrl
+#CRL-ALGORITHM=-lcrl-algorithm
 
 CAIRO_LDFLAGS+=-lcairo -pthread -lX11
 

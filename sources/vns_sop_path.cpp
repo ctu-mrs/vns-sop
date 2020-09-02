@@ -11,7 +11,7 @@ using crl::logger;
 
 using namespace std;
 using namespace crl;
-using namespace crl::gui;
+//using namespace crl::gui;
 using namespace op;
 
 namespace op {

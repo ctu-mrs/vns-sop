@@ -27,18 +27,13 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
 
-#include "crl/logging.h"
-#include "crl/exceptions.h"
-#include "crl/timerN.h"
-#include "crl/perf_timer.h"
-#include "crl/gui/shapes.h"
-#include "crl/gui/guifactory.h"
-#include "crl/gui/win_adjust_size.h"
+#include "comrob_lite/logging.h"
+#include "comrob_lite/exceptions.h"
+#include "comrob_lite/timerN.h"
+#include "comrob_lite/perf_timer.h"
 
-#include "canvasview_coords.h"
-
-#include <crl/config.h>
-#include "crl/boost_args_config.h"
+#include "comrob_lite/config.h"
+#include "comrob_lite/boost_args_config.h"
 #include "sop_loader.h"
 
 #ifdef SOP_ILP
@@ -62,14 +57,10 @@ namespace fs = boost::filesystem;
 #define LOGGER_NAME "lp_gop"
 
 using namespace crl;
-using namespace crl::gui;
-
-typedef crl::gui::CCanvasBase Canvas;
 
 typedef std::vector<Coords> CoordsVector;
 typedef std::vector<CoordsVector> CoordsVectorVector;
 
-crl::gui::CGui *g = 0;
 
 /// ----------------------------------------------------------------------------
 /// Program options variables
@@ -135,13 +126,6 @@ crl::CConfig & addCommonConfig(crl::CConfig & config) {
 	config.add<bool>("draw-ring", "Enable/Disable drawing ring in the final shoot", true);
 	config.add<bool>("draw-path", "Enable/Disable drawing ring in the final shoot", true);
 	config.add<double>("canvas-border", "Free space around the canvas", 10);
-	config.add<std::string>("draw-shape-stations", "Shape of the station", Shape::CITY());
-	config.add<std::string>("draw-shape-neuron", "Shape of the neurons", Shape::NEURON());
-	config.add<std::string>("draw-shape-winner", "Shape of the winners", Shape::NEURON());
-	config.add<std::string>("draw-shape-depot", "Shape of the depot", Shape::DEPOT());
-	config.add<std::string>("draw-shape-path", "Shape of the path", Shape::RED_LINE());
-	config.add<std::string>("draw-shape-ring", "Shape of the ring", Shape::GREEN_BOLD_LINE());
-	config.add<std::string>("draw-shape-tour-represented-by-ring", Shape::BLACK_BOLD_LINE());
 
 	config.add<bool>("draw-neurons", "enable/disable drawing neurons", false);
 	config.add<bool>("draw-winners", "enable/disable drawing winner using a different shape", false);
@@ -182,8 +166,7 @@ crl::CConfig & addCommonConfig(crl::CConfig & config) {
 
 	config.add<bool>("draw-targets-reward", "enable/disable drawing targets in different color using penalty", false);
 	config.add<std::string>("draw-targets-reward-palette", "File name with colors for the reward palette", "");
-	config.add<std::string>("draw-shape-targets", "Shape of the target",
-			CShape("black", "green", 1, 4).getStringOptions());
+	config.add<std::string>("draw-shape-targets", "Shape of the target","");
 	return config;
 }
 
@@ -203,8 +186,7 @@ bool parseArgs(int argc, char *argv[]) {
 			"dedicated gui configuration file")("problem", po::value<std::string>(&problemFile), "problem file");
 	try {
 		po::options_description guiOptions("Gui options");
-		crl::gui::CGuiFactory::getConfig(guiConfig);
-		crl::gui::CWinAdjustSize::getConfig(guiConfig);
+
 		guiConfig.add<double>("gui-add-x",
 				"add the given value to the loaded goals x coord to determine the canvas size and transformation", 0);
 		guiConfig.add<double>("gui-add-y",
@@ -317,7 +299,6 @@ CoordsVector &load_goals_coords(const std::string &filename, crl::CConfig &gopCo
 }
 
 int main(int argc, char** argv) {
-	Canvas *canvas = 0;
 	int ret = -1;
 	if (parseArgs(argc, argv)) {
 		//log4cxx::LoggerPtr my_logger = log4cxx::Logger::getLogger("lp_gop");
@@ -329,16 +310,7 @@ int main(int argc, char** argv) {
 			CoordsVector pts;
 			INFO("testing "<<problemFile);
 			load_goals_coords(problemFile, sopConfig, pts);
-			crl::gui::CWinAdjustSize::adjust(pts, guiConfig);
-			INFO("setting gui");
-			if (!is_displayable) {
-				INFO_BLUE("disable gui - no displayable nodes");
-				guiConfig.set<std::string>("gui", "none");
-			}
-			if ((g = gui::CGuiFactory::createGui(guiConfig)) != 0) {
-				INFO("Start gui " + guiConfig.get<std::string>("gui"));
-				canvas = new Canvas(*g);
-			}
+
 
 			char logName[40];
 			//std::string path = std::string(argv[0]);
@@ -360,13 +332,11 @@ int main(int argc, char** argv) {
 			#ifdef SOP_ILP
 				INFO("using lp solver");
 				SolverLP lpsolver(sopConfig, problemFile);
-				lpsolver.setCanvas(canvas);
 				lpsolver.solve();
 			#else
 				#ifdef SOP_VNS
 					INFO("using vns solver");
 					SolverVNS vnssolver(sopConfig, problemFile);
-					vnssolver.setCanvas(canvas);
 					vnssolver.solve();
 				#else
 					ERROR("unknown sop-solver="<<sop_solver);
@@ -377,23 +347,6 @@ int main(int argc, char** argv) {
 
 			INFO("after solve");
 			usleep(100);
-			if (canvas) {
-				if (canvasOutput.size()) {
-					canvas->save(canvasOutput);
-				}
-				if (!guiConfig.get<bool>("nowait")) {
-					INFO("click to exit");
-					canvas->click();
-					usleep(100);
-				}
-				INFO("delete canvas");
-				delete canvas;
-				delete g;
-			}
-			//std::list<GraphNode> foundTour = fph.find(nodes, budget, startIndex, goalIndex);
-			//Tour foundTour = fph.find(loadedDataset);
-
-			//INFO("tour founded");
 		} catch (crl::exception &e) {
 			ERROR("Exception " << e.what() << "!");
 		} catch (std::exception &e) {
